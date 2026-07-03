@@ -17,6 +17,8 @@ body{
   font-family:Inter,system-ui,sans-serif;
   background:#f8fafc;
   color:#111827;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
 a{
@@ -26,10 +28,53 @@ a{
 
 button{
   cursor:pointer;
+  font:inherit;
+  background:none;
+  border:none;
 }
 
 input,
 textarea,
 select{
   font:inherit;
+}
+
+/* Consistent, visible keyboard focus across the app */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible{
+  outline:2px solid #6366f1;
+  outline-offset:2px;
+  border-radius:4px;
+}
+
+/* Thin, quiet scrollbar to match the slate/indigo palette */
+::-webkit-scrollbar{
+  width:8px;
+  height:8px;
+}
+
+::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#cbd5e1;
+  border-radius:9999px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background:#94a3b8;
+}
+
+* {
+  scrollbar-width:thin;
+  scrollbar-color:#cbd5e1 transparent;
+}
+
+::selection{
+  background:#e0e7ff;
+  color:#111827;
 }

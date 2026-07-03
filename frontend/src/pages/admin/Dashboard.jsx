@@ -1,143 +1,63 @@
-import { useEffect, useState } from "react";
-import {
-  Users,
-  Clock3,
-  CircleCheckBig,
-  CircleX,
-} from "lucide-react";
+import { Bell, ChevronDown } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
-import Card from "../../components/ui/Card";
-import { getDashboard } from "../../services/adminService";
-import AdminLayout from "../../layouts/AdminLayout";
+function AdminTopNavbar() {
+  const { user } = useAuth();
 
-function Dashboard() {
-  const [stats, setStats] = useState({
-    employees: 0,
-    pendingLeaves: 0,
-    approvedLeaves: 0,
-    rejectedLeaves: 0,
-  });
-
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    loadDashboard();
-  }, []);
-
-  async function loadDashboard() {
-    try {
-      const res = await getDashboard();
-
-      setStats(res.data.data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  const cards = [
-    {
-      title: "Employees",
-      value: stats.employees,
-      color: "text-blue-600",
-      bg: "bg-blue-100",
-      icon: Users,
-    },
-    {
-      title: "Pending Leaves",
-      value: stats.pendingLeaves,
-      color: "text-yellow-600",
-      bg: "bg-yellow-100",
-      icon: Clock3,
-    },
-    {
-      title: "Approved Leaves",
-      value: stats.approvedLeaves,
-      color: "text-green-600",
-      bg: "bg-green-100",
-      icon: CircleCheckBig,
-    },
-    {
-      title: "Rejected Leaves",
-      value: stats.rejectedLeaves,
-      color: "text-red-600",
-      bg: "bg-red-100",
-      icon: CircleX,
-    },
-  ];
-
-  if (loading) {
-    return (
-      <div className="text-center py-20 text-gray-500">
-        Loading Dashboard...
-      </div>
-    );
-  }
+  const name = user?.name || "Administrator";
+  const initials = name
+    .split(" ")
+    .map((n) => n[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
 
   return (
-    <div className="space-y-8">
-      {/* Heading */}
+    <header className="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-8">
+      {/* Left */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-800">
-          Dashboard
-        </h1>
-
-        <p className="text-gray-500 mt-2">
-          Welcome back! Here's an overview of your leave management system.
+        <h2 className="text-lg font-semibold text-slate-900 tracking-tight">
+          Admin Dashboard
+        </h2>
+        <p className="text-sm text-slate-400">
+          Welcome back, {name}
         </p>
       </div>
 
-      {/* Statistics Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-        {cards.map((card) => {
-          const Icon = card.icon;
+      {/* Right */}
+      <div className="flex items-center gap-4">
+        <button className="relative p-2.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-all duration-200">
+          <Bell size={19} strokeWidth={2} />
+          <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+        </button>
 
-          return (
-            <Card key={card.title} className="p-6">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="text-gray-500 text-sm">
-                    {card.title}
-                  </p>
+        <div className="w-px h-8 bg-slate-200" />
 
-                  <h2 className="text-3xl font-bold mt-2">
-                    {card.value}
-                  </h2>
-                </div>
+        <button className="flex items-center gap-3 pl-1 pr-2 py-1.5 rounded-lg hover:bg-slate-50 transition-all duration-200 group">
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center shrink-0">
+            <span className="text-white text-xs font-semibold">
+              {initials}
+            </span>
+          </div>
 
-                <div
-                  className={`p-4 rounded-full ${card.bg}`}
-                >
-                  <Icon
-                    className={`${card.color}`}
-                    size={30}
-                  />
-                </div>
-              </div>
-            </Card>
-          );
-        })}
+          <div className="text-left leading-tight">
+            <p className="text-sm font-semibold text-slate-800">
+              {name}
+            </p>
+            <p className="text-xs text-slate-400 uppercase tracking-wide">
+              {user?.role || "Admin"}
+            </p>
+          </div>
+
+          <ChevronDown
+            size={16}
+            strokeWidth={2}
+            className="text-slate-400 group-hover:text-slate-600 transition-colors ml-1"
+          />
+        </button>
       </div>
-
-      {/* Quick Actions */}
-      <Card className="p-6">
-        <h2 className="text-xl font-semibold mb-4">
-          Quick Actions
-        </h2>
-
-        <div className="flex flex-wrap gap-4">
-          <button className="px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-            Manage Employees
-          </button>
-
-          <button className="px-5 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
-            View Leave Requests
-          </button>
-        </div>
-      </Card>
-    </div>
+    </header>
   );
 }
 
-export default Dashboard;
+export default AdminTopNavbar;
