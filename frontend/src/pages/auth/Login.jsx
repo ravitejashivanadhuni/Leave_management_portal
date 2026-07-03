@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Mail, Lock } from "lucide-react";
+import { Mail, Lock, Sparkles } from "lucide-react";
 
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
@@ -72,75 +72,81 @@ function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 flex items-center justify-center px-6">
-
-      <Card className="w-full max-w-md p-8">
-
-        <div className="text-center mb-8">
-
-          <h1 className="text-3xl font-bold text-blue-600">
-            Employee Leave Portal
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-6">
+      <div className="w-full max-w-md">
+        {/* Logo */}
+        <div className="flex flex-col items-center mb-8">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center shadow-sm shadow-indigo-200">
+            <Sparkles size={22} className="text-white" strokeWidth={2.5} />
+          </div>
+          <h1 className="text-xl font-semibold text-slate-900 tracking-tight mt-4">
+            Leave Portal
           </h1>
-
-          <p className="text-gray-500 mt-2">
-            Sign in to your account
-          </p>
-
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-5"
-        >
+        <Card className="w-full p-8 border border-slate-200">
+          <div className="mb-7">
+            <h2 className="text-lg font-semibold text-slate-900">
+              Sign in to your account
+            </h2>
+            <p className="text-sm text-slate-500 mt-1">
+              Enter your details to access the dashboard
+            </p>
+          </div>
 
-          <Input
-            label="Email Address"
-            name="email"
-            type="email"
-            placeholder="Enter your email"
-            value={form.email}
-            onChange={handleChange}
-            icon={<Mail size={18} />}
-            required
-          />
-
-          <Input
-            label="Password"
-            name="password"
-            type="password"
-            placeholder="Enter your password"
-            value={form.password}
-            onChange={handleChange}
-            icon={<Lock size={18} />}
-            required
-          />
-
-          <Button
-            type="submit"
-            variant="primary"
-            loading={loading}
-            fullWidth
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-5"
           >
-            Login
-          </Button>
 
-        </form>
+            <Input
+              label="Email Address"
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              value={form.email}
+              onChange={handleChange}
+              icon={<Mail size={18} />}
+              required
+            />
 
-        <div className="mt-6 text-center text-sm text-gray-600">
+            <Input
+              label="Password"
+              name="password"
+              type="password"
+              placeholder="Enter your password"
+              value={form.password}
+              onChange={handleChange}
+              icon={<Lock size={18} />}
+              required
+            />
 
-          Don't have an account?{" "}
+            <Button
+              type="submit"
+              variant="primary"
+              loading={loading}
+              fullWidth
+            >
+              Login
+            </Button>
 
-          <Link
-            to="/register"
-            className="text-blue-600 font-semibold hover:underline"
-          >
-            Register
-          </Link>
+          </form>
 
-        </div>
+          <div className="mt-6 text-center text-sm text-slate-500">
+            Don't have an account?{" "}
+            <Link
+              to="/register"
+              className="text-indigo-600 font-semibold hover:text-indigo-700"
+            >
+              Register
+            </Link>
+          </div>
+        </Card>
 
-      </Card>
-
+        <p className="text-center text-xs text-slate-400 mt-6">
+          Protected access for employees and administrators
+        </p>
+      </div>
     </div>
   );
 }
