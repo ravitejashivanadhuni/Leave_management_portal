@@ -105,3 +105,31 @@ def get_leave_history(user_id):
         "success": True,
         "data": history
     }, 200
+
+def cancel_leave(user_id, leave_id):
+
+    leave = Leave.query.filter_by(
+        id=leave_id,
+        user_id=user_id
+    ).first()
+
+    if not leave:
+        return {
+            "success": False,
+            "message": "Leave not found"
+        }, 404
+
+    if leave.status != "PENDING":
+        return {
+            "success": False,
+            "message": "Only pending leaves can be cancelled"
+        }, 400
+
+    leave.status = "CANCELLED"
+
+    db.session.commit()
+
+    return {
+        "success": True,
+        "message": "Leave Cancelled Successfully"
+    }, 200

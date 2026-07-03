@@ -5,7 +5,7 @@ from flask_jwt_extended import (
     get_jwt_identity
 )
 
-from services.employee_service import (get_dashboard , apply_leave, get_leave_history)
+from services.employee_service import (get_dashboard , apply_leave, get_leave_history,cancel_leave)
 
 employee_bp = Blueprint(
     "employee",
@@ -54,5 +54,21 @@ def leave_history():
     user_id = int(get_jwt_identity())
 
     response, status = get_leave_history(user_id)
+
+    return jsonify(response), status
+
+@employee_bp.route(
+    "/api/employee/cancel/<int:leave_id>",
+    methods=["DELETE"]
+)
+@jwt_required()
+def cancel(leave_id):
+
+    user_id = int(get_jwt_identity())
+
+    response, status = cancel_leave(
+        user_id,
+        leave_id
+    )
 
     return jsonify(response), status
