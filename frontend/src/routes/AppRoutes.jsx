@@ -26,7 +26,16 @@ function AppRoutes() {
                     path="/register"
                     element={<Register />}
                 />
-
+<Route
+    path="/employee/dashboard"
+    element={
+        <ProtectedRoute>
+            <RoleProtectedRoute role="EMPLOYEE">
+                <Dashboard/>
+            </RoleProtectedRoute>
+        </ProtectedRoute>
+    }
+/>
             </Routes>
 
         </BrowserRouter>
