@@ -3,7 +3,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "../pages/Landing/LandingPage";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
-
+import ProtectedRoute from "../components/layout/ProtectedRoute";
+import RoleProtectedRoute from "../components/layout/RoleProtectedRoute";
+import Dashboard from "../pages/Employee/Dashboard";
+import LeaveHistory from "../pages/Employee/LeaveHistory";
+import ApplyLeave from "../pages/employee/ApplyLeave";
 function AppRoutes() {
 
     return (

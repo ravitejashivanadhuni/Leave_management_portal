@@ -10,45 +10,49 @@ export function AuthProvider({ children }) {
         localStorage.getItem("token") || null
     );
 
-    useEffect(() => {
+useEffect(() => {
 
-        if (token) {
+    if (token) {
 
-            const role = localStorage.getItem("role");
+        const storedUser = localStorage.getItem("user");
 
-            setUser({
-                role
-            });
+        if (storedUser) {
+
+            setUser(JSON.parse(storedUser));
 
         }
 
-    }, [token]);
-
-    function login(accessToken, role) {
-
-        localStorage.setItem("token", accessToken);
-
-        localStorage.setItem("role", role);
-
-        setToken(accessToken);
-
-        setUser({
-            role
-        });
-
     }
 
-    function logout() {
+}, [token]);
 
-        localStorage.removeItem("token");
+function login(token, user) {
 
-        localStorage.removeItem("role");
+    localStorage.setItem("token", token);
 
-        setUser(null);
+    localStorage.setItem("role", user.role);
 
-        setToken(null);
+    localStorage.setItem("user", JSON.stringify(user));
 
-    }
+    setToken(token);
+
+    setUser(user);
+
+}
+
+function logout() {
+
+    localStorage.removeItem("token");
+
+    localStorage.removeItem("role");
+
+    localStorage.removeItem("user");
+
+    setUser(null);
+
+    setToken(null);
+
+}
 
     return (
 
