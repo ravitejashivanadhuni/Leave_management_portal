@@ -26,12 +26,33 @@ function AppRoutes() {
                     path="/register"
                     element={<Register />}
                 />
-<Route
-    path="/employee/dashboard"
+                <Route
+                    path="/employee/dashboard"
+                    element={
+                        <ProtectedRoute>
+                            <RoleProtectedRoute role="EMPLOYEE">
+                                <Dashboard />
+                            </RoleProtectedRoute>
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/employee/history"
+                    element={
+                        <ProtectedRoute>
+                            <RoleProtectedRoute role="EMPLOYEE">
+                                <LeaveHistory />
+                            </RoleProtectedRoute>
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+    path="/employee/apply-leave"
     element={
         <ProtectedRoute>
             <RoleProtectedRoute role="EMPLOYEE">
-                <Dashboard/>
+                <ApplyLeave/>
             </RoleProtectedRoute>
         </ProtectedRoute>
     }

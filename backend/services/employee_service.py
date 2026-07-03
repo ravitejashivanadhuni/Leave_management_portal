@@ -1,7 +1,7 @@
 from datetime import datetime
 from models import db
 from models.leave import Leave
-
+from models.leave_type import LeaveType
 
 def get_dashboard(user_id):
 
@@ -132,4 +132,27 @@ def cancel_leave(user_id, leave_id):
     return {
         "success": True,
         "message": "Leave Cancelled Successfully"
+    }, 200
+
+def get_leave_types():
+
+    leave_types = LeaveType.query.all()
+
+    data = []
+
+    for leave in leave_types:
+
+        data.append({
+
+            "id": leave.id,
+
+            "name": leave.name,
+
+            "daysAllowed": leave.days_allowed
+
+        })
+
+    return {
+        "success": True,
+        "data": data
     }, 200
