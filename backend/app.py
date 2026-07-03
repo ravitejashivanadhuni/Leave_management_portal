@@ -12,6 +12,7 @@ from flask_jwt_extended import JWTManager
 from routes.auth_routes import auth_bp
 
 from routes.employee_routes import employee_bp
+from routes.admin_routes import admin_bp
 
 app = Flask(__name__)
 
@@ -23,6 +24,8 @@ CORS(app)
 db.init_app(app)
 app.register_blueprint(auth_bp)
 app.register_blueprint(employee_bp)
+app.register_blueprint(admin_bp)
+
 @app.route("/")
 def home():
     return {
