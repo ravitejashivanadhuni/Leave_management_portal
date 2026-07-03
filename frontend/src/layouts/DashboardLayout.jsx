@@ -1,34 +1,26 @@
 import Sidebar from "./Sidebar";
 import TopNavbar from "./TopNavbar";
 
-function DashboardLayout({
+function DashboardLayout({ children }) {
+  return (
+    <div className="flex h-screen bg-slate-100">
 
-    children
+      <Sidebar />
 
-}) {
+      <div className="flex flex-col flex-1 overflow-hidden">
 
-    return (
+        <TopNavbar />
 
-        <div className="flex min-h-screen bg-gray-100">
+        <main className="flex-1 overflow-y-auto p-8">
 
-            <Sidebar />
+          {children}
 
-            <div className="flex-1 flex flex-col">
+        </main>
 
-                <TopNavbar />
+      </div>
 
-                <main className="p-8">
-
-                    {children}
-
-                </main>
-
-            </div>
-
-        </div>
-
-    );
-
+    </div>
+  );
 }
 
 export default DashboardLayout;
