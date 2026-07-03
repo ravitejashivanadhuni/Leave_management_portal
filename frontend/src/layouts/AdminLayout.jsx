@@ -5,7 +5,7 @@ function AdminLayout({ children }) {
   return (
     <div className="flex h-screen bg-slate-100">
       {/* Sidebar */}
-      <AdminSidebar />
+      {/* <AdminSidebar /> */}
 
       {/* Main Content */}
       <div className="flex flex-col flex-1 overflow-hidden">

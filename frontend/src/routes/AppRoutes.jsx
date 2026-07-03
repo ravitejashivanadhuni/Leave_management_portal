@@ -8,6 +8,9 @@ import RoleProtectedRoute from "../components/layout/RoleProtectedRoute";
 import Dashboard from "../pages/Employee/Dashboard";
 import LeaveHistory from "../pages/Employee/LeaveHistory";
 import ApplyLeave from "../pages/employee/ApplyLeave";
+import AdminLayout from "../layouts/AdminLayout";
+import LeaveRequests from "../pages/admin/Leaves";
+
 function AppRoutes() {
 
     return (
@@ -59,6 +62,22 @@ function AppRoutes() {
                 <ApplyLeave/>
             </RoleProtectedRoute>
         </ProtectedRoute>
+    }
+/>
+<Route
+    path="/admin/dashboard"
+    element={
+        <AdminLayout>
+            <Dashboard />
+        </AdminLayout>
+    }
+/>
+<Route
+    path="/admin/leaves"
+    element={
+        <AdminLayout>
+            <LeaveRequests />
+        </AdminLayout>
     }
 />
             </Routes>
