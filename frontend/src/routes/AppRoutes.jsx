@@ -10,6 +10,7 @@ import LeaveHistory from "../pages/Employee/LeaveHistory";
 import ApplyLeave from "../pages/employee/ApplyLeave";
 import AdminLayout from "../layouts/AdminLayout";
 import LeaveRequests from "../pages/admin/Leaves";
+import Employees from "../pages/admin/Employees";
 
 function AppRoutes() {
 
@@ -79,6 +80,14 @@ function AppRoutes() {
             <LeaveRequests />
         </AdminLayout>
     }
+/>
+<Route
+  path="/admin/employees"
+  element={
+    <AdminLayout>
+      <Employees />
+    </AdminLayout>
+  }
 />
             </Routes>
 
